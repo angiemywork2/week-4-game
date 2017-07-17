@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Crytal Game</title>
+	<title>Crystal Game</title>
 	
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <style type="text/javascript"></style>
@@ -20,44 +20,18 @@
 </head>
 <body>
 
-	<!-- Overall Bootstrap Grid -->
-  <div class="container">
+  <h3 class="text-left"><strong>CrystalsCollector</strong></h3>
 
-    
-    <div class="col-lg-6">
-      <h3 class="text-left"><strong>CrystalsCollector</strong></h3>
-      <hr>
-      
-
-    </div>
-
-
-    <div class="row">
-
-    <!-- Left Box -->
-    	<div class="col-lg-6">
-    		<h3>Crystal collector</h3>
 
 	<!-- Here we added a header which will hold the "number-to-guess" -->
   <h1>Number to Guess: <span id="number-to-guess"></span></h1>
 
 	<!--Crytsal Number 1 -->
-  <div id="crystal1">
-  	<!-- We gave our crystal image the class ".crystal-image" to apply the resize-->
-    <img class="crystal1-image" src="assets/images/crystal1.jpg" alt="crystal1">
+  <div id="crystal">
   	
   </div>
 
-	<!--Crytsal Number Two -->
-  <div id="crystal2">
-  	<!-- We gave our crystal image the class ".crystal-image" to apply the resize-->
-    <img class="crystal2-image" src="assets/images/crystal2.jpg" alt="crystal2">
-  	
-  </div>
-
-    	</div>
-
-    </div>
+	
 
 	<!-- Here we added a link to the jQuery library -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -66,68 +40,70 @@
 	<script type="text/javascript">
 
 	//Number to Guess
-	var targetGuess = 55;
+	var targetGuess = 53;
 
 	$("#number-to-guess").text(targetGuess);
 
 
-	// Here we created an on-click event that responds to button clicks of the crystal1 image.
+	// Here we created an on-click event that responds to button clicks of the crystal image.
 	//COUNTER
 
 	var counter = 0;
 
-	// Here we created code that selects a number either 10 or 11.
-  // We'll set this number at the start of the "game".
+	
   var numberOptions = [10, 5, 3, 7];
+
+  // Next we create a for loop to create crystals for every numberOption.
+  for (var i = 0; i < numberOptions.length; i++) {
+
+    // For each iteration, we will create an imageCrystal
+    var imageCrystal = $("<img>");
+
+    // First each crystal will be given the class ".crystal-image".
+    // This will allow the CSS to take effect.
+    imageCrystal.addClass("crystal-image");
+
+    // Each imageCrystal will be given a src link to the crystal image
+    imageCrystal.attr("src", "assets/images/crystal.jpg");
+
+    // Each imageCrystal will be given a data attribute called data-crystalValue.
+    // This data attribute will be set equal to the array value.
+    imageCrystal.attr("data-crystalvalue", numberOptions[i]);
+
+    // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
+    $("#crystal").append(imageCrystal);
+  }
+
+  
+  $(".crystal-image").on("click", function() {
+
+
+
+  	var crystalValue = ($(this).attr("data-crystalvalue"));
+    console.log("data is " +crystalValue);
+    crystalValue = parseInt(crystalValue);
+    console.log("crystalValue is " +crystalValue);
+
+    console.log("first  is " +counter);
+  	counter += crystalValue;
+  	console.log("counter is " +counter);
+
+
+    // Clicking the button triggers an alert message.
+    alert("Your new score is " +counter);
+
+    if (counter === targetGuess) {
+    	alert("You Win!");
+    }
+
+    else if (counter >= targetGuess) {
+    	alert("You Lose!");
+    }
+
+  });
 
   
 
-  var increment = numberOptions[Math.round(Math.random())];
-
-  $(".crystal1-image").on("click", function() {
-
-  	counter += increment;
-
-    // Clicking the button triggers an alert message.
-    alert("Your new score is " +counter);
-
-    if (counter === targetGuess) {
-    	alert("You Win!");
-    }
-
-    else if (counter >= targetGuess) {
-    	alert("You Lose!");
-    }
-
-  });
-
-  // Here we created an on-click event that responds to button clicks of the crystal2 image.
-
-  //counter
-  var counter = 0;
-
-  // Here we created code that selects a number either 10 or 11.
-  // We'll set this number at the start of the "game".
-  var numberOptions = [10, 5, 3, 7];
-  var increment = numberOptions[Math.round(Math.random())];
-
-  $(".crystal2-image").on("click", function() {
-
-  	counter += increment;
-
-    // Clicking the button triggers an alert message.
-    alert("Your new score is " +counter);
-
-    if (counter === targetGuess) {
-    	alert("You Win!");
-    }
-
-    else if (counter >= targetGuess) {
-    	alert("You Lose!");
-    }
-
-
-  });
 
   
   
